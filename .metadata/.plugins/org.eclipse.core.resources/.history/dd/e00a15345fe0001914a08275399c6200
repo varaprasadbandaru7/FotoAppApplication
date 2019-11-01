@@ -1,0 +1,42 @@
+package com.myphotoshop.fotoapp.users.service;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.myphotoshop.fotoapp.users.entity.UserEntity;
+import com.myphotoshop.fotoapp.users.model.User;
+import com.myphotoshop.fotoapp.users.shared.Utils;
+
+@Service
+public class UserServiceImpl implements UserService {
+
+	Map<String, UserEntity> userMap;
+	Utils utils;
+	
+	@Autowired
+	public UserServiceImpl(Utils utils) {
+		this.utils=utils;
+	}
+
+	@Override
+	public UserEntity createUser(User user) {
+		
+		UserEntity userEntity = new UserEntity();
+		userEntity.setFirstName(user.getFirstName());
+		userEntity.setLastName(user.getLastName());
+		userEntity.setEmail(user.getEmail());
+		userEntity.setPassword(user.getPassword());
+
+		String userid = utils.generateUserID();
+		userEntity.setUserid(userid);
+
+		if (userMap == null)
+			userMap = new HashMap<String, UserEntity>();
+		userMap.put(userid, userEntity);
+		
+		return userEntity;
+	}
+}

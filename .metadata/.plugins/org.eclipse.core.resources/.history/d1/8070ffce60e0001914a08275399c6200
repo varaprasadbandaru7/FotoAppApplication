@@ -1,0 +1,73 @@
+package com.myphotoshop.fotoapp.users.controller;
+
+import java.util.Map;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.myphotoshop.fotoapp.users.entity.UserEntity;
+import com.myphotoshop.fotoapp.users.exception.UserServiceException;
+import com.myphotoshop.fotoapp.users.model.User;
+import com.myphotoshop.fotoapp.users.service.UserService;
+
+@RestController
+@RequestMapping("/users")
+public class UsersController {
+
+	Map<String, UserEntity> userMap;
+	@Autowired
+	UserService userService;
+
+	@GetMapping(path = "/{userid}", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+	public ResponseEntity<UserEntity> getUser(@PathVariable String userid) {
+
+		if (userMap.containsKey(userid)) {
+			return new ResponseEntity<>(userMap.get(userid), HttpStatus.OK);
+		} else {
+			throw new UserServiceException("User Service exception called");
+		}
+	}
+
+	@PostMapping(produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE }, consumes = {
+			MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+	public ResponseEntity<UserEntity> createUser(@Valid @RequestBody User user) {
+
+		UserEntity userEntity = userService.createUser(user);
+		return new ResponseEntity<UserEntity>(userEntity, HttpStatus.CREATED);
+	}
+
+	@PutMapping(path = "/{userid}", produces = { MediaType.APPLICATION_XML_VALUE,
+			MediaType.APPLICATION_JSON_VALUE }, consumes = { MediaType.APPLICATION_XML_VALUE,
+					MediaType.APPLICATION_JSON_VALUE })
+	public ResponseEntity<UserEntity> updateUser(@PathVariable String userid, @Valid @RequestBody User user) {
+		UserEntity userEntity = new UserEntity();
+		userEntity.setUserid(userid);
+		userEntity.setFirstName(user.getFirstName());
+		userEntity.setLastName(user.getLastName());
+		userEntity.setEmail(user.getEmail());
+		userEntity.setPassword(user.getPassword());
+
+		userMap.put(userid, userEntity);
+
+		return new ResponseEntity<UserEntity>(userEntity, HttpStatus.OK);
+
+	}
+
+	@DeleteMapping(path = "/{userid}")
+	public ResponseEntity<Void> deleteUser(@PathVariable String userid) {
+		userMap.remove(userid);
+		return ResponseEntity.noContent().build();
+	}
+}

@@ -1,0 +1,9 @@
+INDEX VERSION 1.4+H:\UdemyProject\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+2411069539.index
+1953756547.index
+1107376520.index
+1493292773.index
+209608017.index
+1005207994.index
+2479011136.index
+3401318601.index

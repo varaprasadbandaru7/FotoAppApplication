@@ -1,0 +1,5 @@
+package com.myphotoshop.fotoapp.users.shared;
+
+public class Utils {
+
+}

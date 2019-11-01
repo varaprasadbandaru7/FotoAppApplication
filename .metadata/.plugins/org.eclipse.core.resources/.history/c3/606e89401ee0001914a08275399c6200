@@ -1,0 +1,13 @@
+package com.myphotoshop.fotoapp.discovery;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class FotoAppDiscoveryServiceApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(FotoAppDiscoveryServiceApplication.class, args);
+	}
+
+}

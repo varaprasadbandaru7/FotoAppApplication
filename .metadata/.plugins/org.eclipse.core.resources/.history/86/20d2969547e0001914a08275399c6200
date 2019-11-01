@@ -1,0 +1,5 @@
+package com.myphotoshop.fotoapp.accountmanagement.controller;
+
+public class AccountController {
+
+}

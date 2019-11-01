@@ -1,0 +1,6 @@
+package com.myphotoshop.fotoapp.users.service;
+
+public interface UserService {
+	
+	public UserEntity createUser(User user);
+}

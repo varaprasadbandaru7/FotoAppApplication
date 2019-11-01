@@ -1,0 +1,9 @@
+package com.myphotoshop.fotoapp.users.shared;
+
+@Component
+public class Utils {
+	public String generateUserID()
+	{
+		return UUID.randomUUID().toString();
+	}
+}

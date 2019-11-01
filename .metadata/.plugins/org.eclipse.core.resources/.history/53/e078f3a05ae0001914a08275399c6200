@@ -1,0 +1,5 @@
+package com.myphotoshop.fotoapp.users.service;
+
+public interface UserService {
+
+}
